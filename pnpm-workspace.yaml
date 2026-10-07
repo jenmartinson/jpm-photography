@@ -1,0 +1,18 @@
+packages:
+  - 'apps/*'
+allowBuilds:
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@sanity/access-ui@6.18.0'
+  - '@sanity/cli-build@6.4.4'
+  - '@sanity/cli@8.14.0'
+  - '@sanity/diff@6.18.0'
+  - '@sanity/mutator@6.18.0'
+  - '@sanity/schema@6.18.0'
+  - '@sanity/types@6.18.0'
+  - '@sanity/ui@4.3.1'
+  - '@sanity/util@6.18.0'
+  - '@sanity/validation@6.18.0'
+  - '@sanity/vision@6.18.0'
+  - '@sanity/workbench-cli@2.8.3'
+  - sanity@6.18.0

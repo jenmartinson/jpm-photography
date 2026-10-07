@@ -1,0 +1,12 @@
+{
+  "name": "photo-portfolio",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@12.9.1" 
+}
