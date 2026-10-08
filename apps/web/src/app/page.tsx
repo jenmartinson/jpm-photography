@@ -25,13 +25,13 @@ export default async function Home() {
   return (
     <div className="max-w-6xl mx-auto space-y-16">
       {/* Statement Logo & Tagline Header */}
-      <div className="text-center space-y-6 max-w-lg mx-auto">
+      <div className="text-center space-y-6 max-w-lg mx-auto mt-[-20px] md:mt-[-60px]">
         <Image 
           src="/jpm_logo.png" 
           alt="John P. Martinson" 
           width={500} 
           height={168} 
-          className="h-36 w-auto object-contain mx-auto" 
+          className="h-58 w-auto object-contain mx-auto" 
           priority
         />
         <p className="text-base text-zinc-500 font-light leading-relaxed">
