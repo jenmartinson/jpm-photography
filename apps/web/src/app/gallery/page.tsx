@@ -42,7 +42,7 @@ export default async function GalleryPage({
   return (
     <div className="space-y-12">
       {/* Minimal Filter Navigation */}
-      <div className="flex gap-4 border-b border-zinc-100 pb-4 overflow-x-auto">
+      <div className="flex justify-center gap-4 border-b border-zinc-100 pb-4 overflow-x-auto">
         <Link 
           href="/gallery" 
           className={`text-sm ${!selectedTag ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}

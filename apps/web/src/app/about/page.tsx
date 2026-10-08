@@ -66,10 +66,12 @@ export default async function AboutPage() {
   }
 
   return (
-    <article className="max-w-2xl mx-auto py-12">
-      <h1 className="text-3xl font-light tracking-tight text-zinc-900 mb-8 border-b border-zinc-100 pb-4">
-        {page.title}
-      </h1>
+    <article className="max-w-2xl mx-auto py-6">
+      {page.title && (
+        <h1 className="text-2xl font-light tracking-tight text-zinc-500 mb-4 border-b border-zinc-100 pb-4 text-center md:text-left">
+            {page.title}
+        </h1>
+      )}
       {page.content && (
         <div className="pt-2">
           <PortableText value={page.content} components={portableTextComponents} />

@@ -6,7 +6,7 @@ export function HeaderLogo() {
     <Link href="/" className="flex items-center gap-3 group">
       {/* Hand-drawn style camera icon */}
       <svg 
-        className="h-8 w-8 text-[#1D3557] group-hover:opacity-80 transition-opacity" 
+        className="h-8 w-8 text-[#1D3557] group-hover:opacity-80 transition-opacity shrink-0" 
         viewBox="0 0 48 48" 
         fill="none" 
         stroke="currentColor" 

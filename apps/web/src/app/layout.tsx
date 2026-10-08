@@ -1,21 +1,13 @@
 import './globals.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { HeaderLogo } from '../components/header-logo'
+import { Header } from '../components/header'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-white text-zinc-900 antialiased min-h-screen flex flex-col">
-        <header className="py-10 px-6 md:px-12 flex justify-between items-center max-w-7xl mx-auto w-full">
-
-            <HeaderLogo />
-
-          <nav className="flex gap-6 text-sm text-zinc-500">
-            <Link href="/gallery" className="hover:text-zinc-900 transition-colors">Gallery</Link>
-            <Link href="/about" className="hover:text-zinc-900 transition-colors">About</Link>
-          </nav>
-        </header>
+        <Header />
 
         <main className="flex-grow max-w-7xl mx-auto w-full px-6 md:px-12">
           {children}
