@@ -1,6 +1,6 @@
-import { pageType } from "./page.ts";
-import { photoType } from "./photo.ts";
-import { tagType } from "./tag.ts";
+import { pageType } from "./page";
+import { photoType } from "./photo";
+import { tagType } from "./tag";
 
 export const schemaTypes = [pageType, photoType, tagType]
 

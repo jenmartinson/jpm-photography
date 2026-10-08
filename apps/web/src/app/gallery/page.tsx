@@ -1,40 +1,43 @@
-// apps/web/src/app/gallery/page.tsx
 import { createClient } from 'next-sanity'
 import Link from 'next/link'
 import { GalleryGrid } from '../../components/gallery-grid'
 
 const client = createClient({
-  projectId: '651sxvb1', 
-  dataset: 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '651sxvb1', 
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
   useCdn: false,
 })
 
-export default async function Gallery(props: {
-  searchParams: Promise<{ tag?: string }>
+export default async function GalleryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tag?: string }>;
 }) {
-  const searchParams = await props.searchParams
-  const selectedTag = searchParams.tag
+  const { tag: selectedTag } = await searchParams;
 
-  const tags = await client.fetch(`*[_type == "tag"]{ title, "slug": slug.current }`)
-  
-  const query = selectedTag 
-    ? `*[_type == "photo" && $tag in tags[]->slug.current] { 
-        _id, 
-        title, 
-        "url": image.asset->url, 
+  const tags = await client.fetch(`*[_type == "tag"]{ title, "slug": slug.current }`);
+
+  // Explicitly typing query as 'string' bypasses TypeGen's literal query matching
+  const query: string = selectedTag
+    ? `*[_type == "photo" && $tag in tags[]->slug.current] {
+        _id,
+        title,
+        "url": image.asset->url,
         "alt": image.alt,
         "dimensions": image.asset->metadata.dimensions
       }`
-    : `*[_type == "photo"] { 
-        _id, 
-        title, 
-        "url": image.asset->url, 
+    : `*[_type == "photo"] {
+        _id,
+        title,
+        "url": image.asset->url,
         "alt": image.alt,
         "dimensions": image.asset->metadata.dimensions
-      }`
-    
-  const photos = await client.fetch(query, { tag: selectedTag || '' })
+      }`;
+
+  const params: Record<string, unknown> = selectedTag ? { tag: selectedTag } : {};
+
+  const photos = await client.fetch(query, params);
 
   return (
     <div className="space-y-12">
@@ -46,13 +49,13 @@ export default async function Gallery(props: {
         >
           All
         </Link>
-        {tags.map((tag: any) => (
+        {tags.map((t: { title: string; slug: string }) => (
           <Link 
-            key={tag.slug} 
-            href={`/gallery?tag=${tag.slug}`}
-            className={`text-sm ${selectedTag === tag.slug ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
+            key={t.slug} 
+            href={`/gallery?tag=${t.slug}`}
+            className={`text-sm ${selectedTag === t.slug ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
           >
-            {tag.title}
+            {t.title}
           </Link>
         ))}
       </div>
