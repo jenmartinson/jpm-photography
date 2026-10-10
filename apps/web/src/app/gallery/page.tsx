@@ -16,7 +16,7 @@ export default async function GalleryPage({
 }) {
   const { tag: selectedTag } = await searchParams;
 
-  const tags = await client.fetch(`*[_type == "tag"]{ title, "slug": slug.current }`);
+  const tags = await client.fetch(`*[_type == "tag" && slug.current != "homepage"]{ title, "slug": slug.current }`);
 
   // Explicitly typing query as 'string' bypasses TypeGen's literal query matching
   const query: string = selectedTag
@@ -45,7 +45,7 @@ export default async function GalleryPage({
       <div className="flex justify-center gap-4 border-b border-zinc-100 pb-4 overflow-x-auto">
         <Link 
           href="/gallery" 
-          className={`text-sm ${!selectedTag ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
+          className={`text-base ${!selectedTag ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
         >
           All
         </Link>
@@ -53,7 +53,7 @@ export default async function GalleryPage({
           <Link 
             key={t.slug} 
             href={`/gallery?tag=${t.slug}`}
-            className={`text-sm ${selectedTag === t.slug ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
+            className={`text-base ${selectedTag === t.slug ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
           >
             {t.title}
           </Link>

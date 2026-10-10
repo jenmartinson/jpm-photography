@@ -3,8 +3,9 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
+import { LightboxImage } from './lightbox-image'
 
-interface Photo {
+export interface Photo {
   _id: string
   title?: string
   url: string
@@ -74,7 +75,7 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
               alt={photo.alt || photo.title || 'Gallery image'}
               width={photo.dimensions?.width || 1200}
               height={photo.dimensions?.height || 800}
-              className="w-full h-auto bg-zinc-50 transition-opacity duration-300 group-hover:opacity-90"
+              className="w-full h-auto bg-zinc-50 transition-transform duration-700 ease-out group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
@@ -103,26 +104,10 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
 
     {/* Centered Image Frame */}
     <div
-      className="relative w-full h-full max-w-5xl max-h-[80vh] flex flex-col items-center justify-center"
-      onClick={(e) => e.stopPropagation()}
+    className="relative w-full h-full max-w-5xl max-h-[80vh] flex flex-col items-center justify-center"
+    onClick={(e) => e.stopPropagation()}
     >
-      <div className="relative w-full h-full">
-        <Image
-          src={activePhoto.url}
-          alt={activePhoto.alt || activePhoto.title || 'Enlarged image'}
-          fill
-          className="object-contain"
-          sizes="100vw"
-          priority
-        />
-      </div>
-
-      {/* Photo Caption */}
-      {(activePhoto.title || activePhoto.alt) && (
-        <p className="mt-4 text-xs tracking-widest text-zinc-400 text-center uppercase">
-          {activePhoto.title || activePhoto.alt}
-        </p>
-      )}
+    <LightboxImage key={activePhoto._id} photo={activePhoto} />
     </div>
 
     {/* Left Arrow Button (Rendered on top with SVG icon) */}

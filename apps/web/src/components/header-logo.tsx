@@ -6,7 +6,7 @@ export function HeaderLogo() {
     <Link href="/" className="flex items-center gap-3 group">
       {/* Hand-drawn style camera icon */}
       <svg 
-        className="h-8 w-8 text-[#1D3557] group-hover:opacity-80 transition-opacity shrink-0" 
+        className="h-8 w-8 text-[#162456] group-hover:opacity-80 transition-opacity shrink-0" 
         viewBox="0 0 48 48" 
         fill="none" 
         stroke="currentColor" 
@@ -19,7 +19,7 @@ export function HeaderLogo() {
         <circle cx="24" cy="29" r="3" />
         <path d="M11 23h.01" />
       </svg>
-      <span className="text-[16px] text-zinc-500 tracking-tight pt-2">
+      <span className="text-lg text-zinc-600 tracking-tight pt-2 hover:text-sky-950">
         John P. Martinson
       </span>
     </Link>

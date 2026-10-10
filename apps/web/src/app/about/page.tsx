@@ -24,7 +24,7 @@ const portableTextComponents: PortableTextComponents = {
       </h2>
     ),
     normal: ({ children }) => (
-      <p className="text-zinc-600 leading-relaxed mb-6 font-light">
+      <p className="text-zinc-600 leading-relaxed mb-6">
         {children}
       </p>
     ),
@@ -68,7 +68,7 @@ export default async function AboutPage() {
   return (
     <article className="max-w-2xl mx-auto py-6">
       {page.title && (
-        <h1 className="text-2xl font-light tracking-tight text-zinc-500 mb-4 border-b border-zinc-100 pb-4 text-center md:text-left">
+        <h1 className="text-2xl text-zinc-600 mb-4 border-b border-zinc-100 pb-4 text-center md:text-left">
             {page.title}
         </h1>
       )}

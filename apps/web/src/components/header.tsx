@@ -9,16 +9,16 @@ export function Header() {
       <HeaderLogo />
 
       {/* Centered below logo on mobile, right-aligned on desktop */}
-      <nav className="flex items-center gap-6 md:gap-8 text-sm text-zinc-600">
-        <Link href="/about" className="hover:text-black transition-colors">
-          About
-        </Link>
-        <Link href="/gallery" className="hover:text-black transition-colors">
+      <nav className="flex items-center gap-6 md:gap-8 text-lg text-zinc-600">
+        <Link href="/gallery" className="hover:text-sky-950 transition-colors">
           Gallery
         </Link>
-{/*         <Link href="/connect" className="hover:text-black transition-colors">
+        <Link href="/about" className="hover:text-sky-950 transition-colors">
+          About
+        </Link>
+         <Link href="/connect" className="hover:text-sky-950 transition-colors">
           Connect
-        </Link> */}
+        </Link> 
       </nav>
     </header>
   )

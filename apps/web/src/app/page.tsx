@@ -11,9 +11,9 @@ const client = createClient({
 })
 
 export default async function Home() {
-  // Fetch up to 3 photos from Sanity with dimensions and metadata
+  // Fetch up to 3 photos tagged with "homepage"
   const photos = await client.fetch(
-    `*[_type == "photo"][0..2]{ 
+    `*[_type == "photo" && "homepage" in tags[]->slug.current][0..2]{ 
       _id, 
       title, 
       "url": image.asset->url, 
@@ -34,7 +34,7 @@ export default async function Home() {
           className="h-58 w-auto object-contain mx-auto" 
           priority
         />
-        <p className="text-base text-zinc-500 font-light leading-relaxed">
+        <p className="text-xl text-zinc-500 leading-relaxed">
           A personal archive of a lifetime behind the camera.
         </p>
       </div>
@@ -77,7 +77,7 @@ export default async function Home() {
       <div className="text-center pt-4">
         <Link 
           href="/gallery" 
-          className="inline-block border border-zinc-200 px-8 py-3 text-sm text-zinc-800 hover:border-zinc-900 hover:bg-zinc-900 hover:text-white transition-all duration-300"
+          className="inline-block border border-zinc-200 px-8 py-3 text-base text-zinc-800 hover:border-zinc-900 hover:bg-sky-950 hover:text-white transition-all duration-300"
         >
           Explore Full Gallery
         </Link>
