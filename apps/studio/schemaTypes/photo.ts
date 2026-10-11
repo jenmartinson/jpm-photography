@@ -41,7 +41,7 @@ export const photoType = defineType({
     }),
   ],
   preview: {
-    select: { title: 'title', media: 'image', featured: 'featuredOnHomepage' },
+    select: { title: 'title', media: 'image', featured: 'feature' },
     prepare({ title, media, featured }) {
         return {
             title: title || 'Untitled Photo',
