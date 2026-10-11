@@ -13,7 +13,7 @@ const client = createClient({
 export default async function Home() {
   // Fetch up to 3 photos tagged with "homepage"
   const photos = await client.fetch(
-    `*[_type == "photo" && "homepage" in tags[]->slug.current][0..2]{ 
+    `*[_type == "photo" && feature == true] | order(_createdAt desc)[0..2]{ 
       _id, 
       title, 
       "url": image.asset->url, 
