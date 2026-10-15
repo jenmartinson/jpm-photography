@@ -23,6 +23,7 @@ export default async function GalleryPage({
     ? `*[_type == "photo" && $tag in tags[]->slug.current] {
         _id,
         title,
+        description,
         "url": image.asset->url,
         "alt": image.alt,
         "dimensions": image.asset->metadata.dimensions
@@ -30,6 +31,7 @@ export default async function GalleryPage({
     : `*[_type == "photo"] {
         _id,
         title,
+        description,
         "url": image.asset->url,
         "alt": image.alt,
         "dimensions": image.asset->metadata.dimensions

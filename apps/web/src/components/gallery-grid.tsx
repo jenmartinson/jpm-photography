@@ -8,6 +8,7 @@ import { LightboxImage } from './lightbox-image'
 export interface Photo {
   _id: string
   title?: string
+  description?: string
   url: string
   alt?: string
   dimensions?: {
@@ -104,7 +105,7 @@ export function GalleryGrid({ photos }: { photos: Photo[] }) {
 
     {/* Centered Image Frame */}
     <div
-    className="relative w-full h-full max-w-5xl max-h-[80vh] flex flex-col items-center justify-center"
+    className="relative w-full h-full flex flex-col items-center justify-center"
     onClick={(e) => e.stopPropagation()}
     >
     <LightboxImage key={activePhoto._id} photo={activePhoto} />

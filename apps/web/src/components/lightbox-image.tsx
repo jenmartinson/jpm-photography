@@ -6,24 +6,26 @@ import { Photo } from './gallery-grid'
 
 export function LightboxImage({ photo }: { photo: Photo }) {
   const [loaded, setLoaded] = useState(false)
-  const caption = photo.title || photo.alt
+  const title = photo.title || photo.alt
+  const width = photo.dimensions?.width || 1200
+  const height = photo.dimensions?.height || 800
 
   return (
-    <>
-      <div className="relative w-full h-full">
-        {/* Skeleton */}
-        <div
-          className={`absolute inset-0 bg-zinc-800/60 animate-pulse transition-opacity duration-300 ${
-            loaded ? 'opacity-0' : 'opacity-100'
-          }`}
-          aria-hidden="true"
-        />
-
+    <div className="flex flex-col items-center justify-center gap-4 max-h-full w-full">
+      {/* Image maximized while preserving aspect ratio */}
+      <div className="relative">
+        {!loaded && (
+          <div
+            className="absolute inset-0 bg-zinc-800/60 animate-pulse rounded-sm"
+            aria-hidden="true"
+          />
+        )}
         <Image
           src={photo.url}
           alt={photo.alt || photo.title || 'Enlarged image'}
-          fill
-          className={`object-contain transition-opacity duration-300 ${
+          width={width}
+          height={height}
+          className={`max-w-[92vw] max-h-[80vh] w-auto h-auto object-contain transition-opacity duration-300 ${
             loaded ? 'opacity-100' : 'opacity-0'
           }`}
           sizes="100vw"
@@ -32,16 +34,25 @@ export function LightboxImage({ photo }: { photo: Photo }) {
         />
       </div>
 
-      {/* Caption fades in with the image */}
-      {caption && (
-        <p
-          className={`mt-4 text-xs tracking-widest text-zinc-400 text-center uppercase transition-opacity duration-300 ${
+      {/* Title and description */}
+      {(title || photo.description) && (
+        <div
+          className={`text-center transition-opacity duration-300 ${
             loaded ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          {caption}
-        </p>
+          {title && (
+            <h2 className="text-lg md:text-2xl font-light tracking-wide text-white uppercase">
+              {title}
+            </h2>
+          )}
+          {photo.description && (
+            <p className="mt-2 text-sm md:text-base text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+              {photo.description}
+            </p>
+          )}
+        </div>
       )}
-    </>
+    </div>
   )
 }

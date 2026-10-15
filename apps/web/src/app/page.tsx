@@ -16,6 +16,7 @@ export default async function Home() {
     `*[_type == "photo" && feature == true] | order(_createdAt desc)[0..2]{ 
       _id, 
       title, 
+      description,
       "url": image.asset->url, 
       "alt": image.alt,
       "dimensions": image.asset->metadata.dimensions
