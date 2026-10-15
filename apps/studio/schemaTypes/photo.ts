@@ -13,6 +13,12 @@ export const photoType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 2,
+    }),    
+    defineField({
       name: 'image',
       title: 'Gallery Image',
       type: 'image',
