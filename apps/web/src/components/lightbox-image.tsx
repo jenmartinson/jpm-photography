@@ -16,9 +16,11 @@ export function LightboxImage({ photo }: { photo: Photo }) {
       <div className="relative">
         {!loaded && (
           <div
-            className="absolute inset-0 bg-zinc-800/60 animate-pulse rounded-sm"
+            className="absolute inset-0 flex items-center justify-center"
             aria-hidden="true"
-          />
+          >
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-zinc-700 border-t-zinc-200" />
+          </div>
         )}
         <Image
           src={photo.url}
@@ -47,7 +49,7 @@ export function LightboxImage({ photo }: { photo: Photo }) {
             </h2>
           )}
           {photo.description && (
-            <p className="mt-2 text-sm md:text-base text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-2 text-sm md:text-base text-zinc-300 max-w-3xl mx-auto leading-relaxed">
               {photo.description}
             </p>
           )}
