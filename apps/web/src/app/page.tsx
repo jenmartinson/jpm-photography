@@ -18,7 +18,7 @@ export default async function Home() {
       title, 
       description,
       "url": image.asset->url, 
-      "alt": image.alt,
+      "alt": image.asset->altText,
       "dimensions": image.asset->metadata.dimensions
     }`
   )
@@ -52,7 +52,7 @@ export default async function Home() {
               <div className="relative aspect-[4/5] overflow-hidden bg-zinc-50 rounded-sm">
                 <Image
                   src={photo.url}
-                  alt={photo.alt || photo.title || 'Portfolio photograph'}
+                  alt={photo.alt || photo.description || photo.title || 'Portfolio photograph'}
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"

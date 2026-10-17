@@ -25,7 +25,7 @@ export default async function GalleryPage({
         title,
         description,
         "url": image.asset->url,
-        "alt": image.alt,
+        "alt": image.asset->altText,
         "dimensions": image.asset->metadata.dimensions
       }`
     : `*[_type == "photo"] {
@@ -33,7 +33,7 @@ export default async function GalleryPage({
         title,
         description,
         "url": image.asset->url,
-        "alt": image.alt,
+        "alt": image.asset->altText,
         "dimensions": image.asset->metadata.dimensions
       }`;
 

@@ -83,7 +83,7 @@ export function GalleryGrid({
           >
             <Image
               src={photo.url}
-              alt={photo.alt || photo.title || 'Gallery image'}
+              alt={photo.alt || photo.description || photo.title || 'Gallery image'}
               width={photo.dimensions?.width || 1200}
               height={photo.dimensions?.height || 800}
               className="w-full h-auto bg-zinc-50 transition-transform duration-700 ease-out group-hover:scale-105"

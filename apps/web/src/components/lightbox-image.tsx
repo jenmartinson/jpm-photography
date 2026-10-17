@@ -6,7 +6,7 @@ import { Photo } from './gallery-grid'
 
 export function LightboxImage({ photo }: { photo: Photo }) {
   const [loaded, setLoaded] = useState(false)
-  const title = photo.title || photo.alt
+  const title = photo.title
   const width = photo.dimensions?.width || 1200
   const height = photo.dimensions?.height || 800
 
@@ -24,7 +24,7 @@ export function LightboxImage({ photo }: { photo: Photo }) {
         )}
         <Image
           src={photo.url}
-          alt={photo.alt || photo.title || 'Enlarged image'}
+          alt={photo.alt || photo.description || photo.title || 'Enlarged image'}
           width={width}
           height={height}
           className={`max-w-[92vw] max-h-[80vh] w-auto h-auto object-contain transition-opacity duration-300 ${
