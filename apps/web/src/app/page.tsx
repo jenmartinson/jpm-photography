@@ -2,6 +2,7 @@
 import { createClient } from 'next-sanity'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { Photo } from '../components/gallery-grid'
 
 const client = createClient({
   projectId: '651sxvb1',
@@ -12,7 +13,7 @@ const client = createClient({
 
 export default async function Home() {
   // Fetch up to 3 photos tagged with "homepage"
-  const photos = await client.fetch(
+  const photos: Photo[] = await client.fetch(
     `*[_type == "photo" && feature == true] | order(_createdAt desc)[0..2]{ 
       _id, 
       title, 
@@ -43,7 +44,7 @@ export default async function Home() {
       {/* Curated Preview Trio */}
       {photos && photos.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {photos.map((photo: any) => (
+          {photos.map((photo) => (
             <Link 
               key={photo._id} 
               href={`/gallery?photo=${photo._id}`}
