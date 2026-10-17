@@ -1,7 +1,7 @@
 // apps/web/src/components/GalleryGrid.tsx
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import { LightboxImage } from './lightbox-image'
 
@@ -45,6 +45,41 @@ export function GalleryGrid({
   }, [photos.length])
 
   const handleClose = () => setActiveIndex(null)
+
+  // Swipe navigation for touch devices
+  const touchStart = useRef<{ x: number; y: number } | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Ignore multi-touch (e.g. pinch) gestures
+    if (e.touches.length !== 1) {
+      touchStart.current = null
+      return
+    }
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStart.current
+    touchStart.current = null
+
+    if (!start || photos.length < 2) return
+
+    const touch = e.changedTouches[0]
+    if (!touch) return
+
+    const dx = touch.clientX - start.x
+    const dy = touch.clientY - start.y
+
+    // Require a deliberate horizontal swipe, not a tap or vertical drag
+    const SWIPE_THRESHOLD = 50
+    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return
+
+    if (dx < 0) {
+      handleNext()
+    } else {
+      handlePrev()
+    }
+  }
 
   // Keyboard listener for Escape, Left, and Right keys
   useEffect(() => {
@@ -115,8 +150,13 @@ export function GalleryGrid({
 
     {/* Centered Image Frame */}
     <div
-    className="relative w-full h-full flex flex-col items-center justify-center"
+    className="relative w-full h-full flex flex-col items-center justify-center touch-pan-y"
     onClick={(e) => e.stopPropagation()}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd}
+    onTouchCancel={() => {
+      touchStart.current = null
+    }}
     >
     <LightboxImage key={activePhoto._id} photo={activePhoto} />
     </div>
@@ -128,7 +168,7 @@ export function GalleryGrid({
           e.stopPropagation()
           handlePrev()
         }}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 z-20 transition-colors bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 hidden pointer-fine:flex items-center justify-center text-white/70 hover:text-white p-3 z-20 transition-colors bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md"
         aria-label="Previous photo"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,7 +184,7 @@ export function GalleryGrid({
           e.stopPropagation()
           handleNext()
         }}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 z-20 transition-colors bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 hidden pointer-fine:flex items-center justify-center text-white/70 hover:text-white p-3 z-20 transition-colors bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md"
         aria-label="Next photo"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
