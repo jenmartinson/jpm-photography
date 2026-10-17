@@ -31,7 +31,7 @@ export function Header() {
                 href={href}
                 aria-current={active ? 'page' : undefined}
                 className={`relative group text-xs md:text-sm uppercase tracking-[0.2em] font-light py-1 transition-colors ${
-                  active ? 'text-sky-950' : 'text-zinc-500 hover:text-sky-950'
+                  active ? 'text-sky-950' : 'text-zinc-800 hover:text-sky-950'
                 }`}
               >
                 {label}
