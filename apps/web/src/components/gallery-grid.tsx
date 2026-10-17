@@ -17,9 +17,19 @@ export interface Photo {
   }
 }
 
-export function GalleryGrid({ photos }: { photos: Photo[] }) {
-  // Track selected photo by index
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+export function GalleryGrid({
+  photos,
+  initialPhotoId,
+}: {
+  photos: Photo[]
+  initialPhotoId?: string
+}) {
+  // Track selected photo by index, optionally opening a deep-linked photo
+  const [activeIndex, setActiveIndex] = useState<number | null>(() => {
+    if (!initialPhotoId) return null
+    const index = photos.findIndex((photo) => photo._id === initialPhotoId)
+    return index >= 0 ? index : null
+  })
 
   const activePhoto = activeIndex !== null ? photos[activeIndex] : null
 

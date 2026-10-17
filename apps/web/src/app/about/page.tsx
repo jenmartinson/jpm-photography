@@ -14,12 +14,12 @@ const client = createClient({
 const portableTextComponents: PortableTextComponents = {
   block: {
     h1: ({ children }) => (
-      <h1 className="text-2xl font-light tracking-tight text-zinc-900 mt-8 mb-4">
+      <h1 className="text-lg md:text-2xl font-light tracking-wide text-zinc-900 mt-8 mb-4">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-xl font-light tracking-tight text-zinc-900 mt-6 mb-3">
+      <h2 className="text-base md:text-xl font-light tracking-wide text-zinc-900 mt-6 mb-3">
         {children}
       </h2>
     ),
@@ -66,9 +66,9 @@ export default async function AboutPage() {
   }
 
   return (
-    <article className="max-w-2xl mx-auto py-6">
+    <article className="max-w-2xl mx-auto pt-6 md:pt-8">
       {page.title && (
-        <h1 className="text-2xl text-zinc-600 mb-4 border-b border-zinc-100 pb-4 text-center md:text-left">
+        <h1 className="text-lg md:text-2xl font-light tracking-wide text-zinc-800 uppercase text-center md:text-left mb-8">
             {page.title}
         </h1>
       )}

@@ -12,9 +12,9 @@ const client = createClient({
 export default async function GalleryPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tag?: string }>;
+  searchParams: Promise<{ tag?: string; photo?: string }>;
 }) {
-  const { tag: selectedTag } = await searchParams;
+  const { tag: selectedTag, photo: initialPhotoId } = await searchParams;
 
   const tags = await client.fetch(`*[_type == "tag" && slug.current != "homepage"]{ title, "slug": slug.current }`);
 
@@ -44,26 +44,34 @@ export default async function GalleryPage({
   return (
     <div className="space-y-12">
       {/* Minimal Filter Navigation */}
-      <div className="flex justify-center gap-4 border-b border-zinc-100 pb-4 overflow-x-auto">
-        <Link 
-          href="/gallery" 
-          className={`text-base ${!selectedTag ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
-        >
-          All
-        </Link>
-        {tags.map((t: { title: string; slug: string }) => (
-          <Link 
-            key={t.slug} 
-            href={`/gallery?tag=${t.slug}`}
-            className={`text-base ${selectedTag === t.slug ? 'text-black font-medium' : 'text-zinc-400 hover:text-zinc-700'}`}
-          >
-            {t.title}
-          </Link>
-        ))}
+      <div className="flex justify-center pt-6 md:pt-8">
+        <div className="inline-flex flex-wrap items-center justify-center gap-1 bg-zinc-100 p-1">
+          {[
+            { label: 'All', href: '/gallery', active: !selectedTag },
+            ...tags.map((t: { title: string; slug: string }) => ({
+              label: t.title,
+              href: `/gallery?tag=${t.slug}`,
+              active: selectedTag === t.slug,
+            })),
+          ].map(({ label, href, active }) => (
+            <Link
+              key={href}
+              href={href}
+              aria-current={active ? 'page' : undefined}
+              className={`px-4 py-1.5 text-xs md:text-sm uppercase tracking-[0.2em] font-light transition-colors ${
+                active
+                  ? 'bg-sky-950 text-white shadow-sm'
+                  : 'text-zinc-700 hover:text-sky-950 hover:bg-white'
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Interactive Gallery & Lightbox */}
-      <GalleryGrid photos={photos} />
+      <GalleryGrid photos={photos} initialPhotoId={initialPhotoId} />
     </div>
   )
 }

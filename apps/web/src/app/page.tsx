@@ -32,7 +32,7 @@ export default async function Home() {
           alt="John P. Martinson" 
           width={500} 
           height={168} 
-          className="h-58 w-auto object-contain mx-auto" 
+          className="relative z-50 h-58 w-auto object-contain mx-auto" 
           priority
         />
         <p className="text-xl text-zinc-500 leading-relaxed">
@@ -46,7 +46,7 @@ export default async function Home() {
           {photos.map((photo: any) => (
             <Link 
               key={photo._id} 
-              href="/gallery" 
+              href={`/gallery?photo=${photo._id}`}
               className="group block space-y-3"
             >
               <div className="relative aspect-[4/5] overflow-hidden bg-zinc-50 rounded-sm">
