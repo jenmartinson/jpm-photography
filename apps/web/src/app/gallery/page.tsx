@@ -20,7 +20,7 @@ export default async function GalleryPage({
 
   // Explicitly typing query as 'string' bypasses TypeGen's literal query matching
   const query: string = selectedTag
-    ? `*[_type == "photo" && $tag in tags[]->slug.current] {
+    ? `*[_type == "photo" && $tag in tags[]->slug.current] | order(coalesce(rating, 0) desc, _createdAt desc) {
         _id,
         title,
         description,
@@ -28,7 +28,7 @@ export default async function GalleryPage({
         "alt": image.asset->altText,
         "dimensions": image.asset->metadata.dimensions
       }`
-    : `*[_type == "photo"] {
+    : `*[_type == "photo"] | order(coalesce(rating, 0) desc, _createdAt desc) {
         _id,
         title,
         description,

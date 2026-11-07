@@ -40,18 +40,36 @@ export const photoType = defineType({
       of: [{ type: 'reference', to: [{ type: 'tag' }] }],
     }),
     defineField({
+      name: 'rating',
+      title: 'Rating',
+      type: 'number',
+      description: 'Up to three stars. Higher-rated photos appear first in the gallery.',
+      options: {
+        list: [
+          { title: '★', value: 1 },
+          { title: '★★', value: 2 },
+          { title: '★★★', value: 3 },
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      validation: (Rule) => Rule.min(1).max(3).integer(),
+    }),
+    defineField({
         name: 'feature',
         type: 'boolean',
         title: 'Feature on Homepage',
         initialValue: false,
-    }),
+    }),    
   ],
   preview: {
-    select: { title: 'title', media: 'image', featured: 'feature' },
-    prepare({ title, media, featured }) {
+    select: { title: 'title', media: 'image', featured: 'feature', rating: 'rating' },
+    prepare({ title, media, featured, rating }) {
         return {
             title: title || 'Untitled Photo',
-            subtitle: featured ? 'Featured on Homepage' : '',
+            subtitle: [rating ? '★'.repeat(rating) : '', featured ? 'Featured on Homepage' : '']
+              .filter(Boolean)
+              .join(' · '),
             media,
         }
     }
